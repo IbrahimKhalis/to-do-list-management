@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 // Get All Users
-router.get('/get-all', async function (req, res) {
+router.get('/', async function (req, res) {
   const users = await prisma.user.findMany({
     select: {
       id: true,
