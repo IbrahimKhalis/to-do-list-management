@@ -34,7 +34,7 @@ import {
 import { useRouter } from "next/navigation";
 import StatusEnum from "@/constant/enums/status.enum"
 
-export function ModalEdit({ id, isOpen, onClose }) {
+export function ModalEdit({ taskId, isOpen, onClose }) {
     const router = useRouter();
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -49,21 +49,22 @@ export function ModalEdit({ id, isOpen, onClose }) {
     })
 
     React.useEffect(() => {
-        if (isOpen && id) {
+        if (isOpen && taskId) {
             fetchTaskData();
         }
-    }, [isOpen, id]);
+    }, [isOpen, taskId]);
 
     async function fetchTaskData() {
         setIsLoading(true);
         try {
-            const response = await fetch(`http://localhost:8080/tasks/detail/${id}`, {
+            const response = await fetch(`http://localhost:8080/tasks/${taskId}`, {
                 method: 'GET',
                 headers: { "Content-Type": "application/json" }
             });
 
             if (response.ok) {
-                const data = await response.json();
+                const jsonData = await response.json();
+                const data = jsonData.data;
 
                 setFormData({
                     title: data.title || "",
@@ -94,7 +95,7 @@ export function ModalEdit({ id, isOpen, onClose }) {
 
     async function handleSubmit() {
         try {
-            const result = await fetch(`http://localhost:8080/tasks/update/${id}`, {
+            const result = await fetch(`http://localhost:8080/tasks/${taskId}`, {
                 method: 'PUT',
                 body: JSON.stringify(formData),
                 headers: { "Content-Type": "application/json" }

@@ -10,9 +10,9 @@ export default function DropdownAction(params) {
     const router = useRouter();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-    async function handleDelete(id) {
+    async function handleDelete(taskId) {
         try {
-            const result = await fetch(`http://localhost:8080/tasks/delete/${id}`, {
+            const result = await fetch(`http://localhost:8080/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json" }
             })
@@ -21,7 +21,7 @@ export default function DropdownAction(params) {
                 router.push("/dashboard");
             }
         } catch (err) {
-            alert()
+            alert(err);
         }
     }
 
@@ -58,7 +58,7 @@ export default function DropdownAction(params) {
             </DropdownMenu>
 
             <ModalEdit
-                id={params.id}
+                taskId={params.id}
                 isOpen={isEditModalOpen}
                 onClose={() =>
                     closeModal()

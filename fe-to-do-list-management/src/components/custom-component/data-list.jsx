@@ -6,12 +6,13 @@ import DropdownAction from "./dropdown-action";
 import StatusEnum from "@/constant/enums/status.enum"
 
 export default async function DataList() {
-    const data = await fetch(`http://localhost:8080/tasks/get-all`);
+    const data = await fetch(`http://localhost:8080/tasks`);
     const jsonData = await data.json();
+    const tasks = jsonData.data;
     const dataTask = {};
 
-    for (let index = 0; index < jsonData.length; index++) {
-        const task = jsonData[index];
+    for (let index = 0; index < tasks.length; index++) {
+        const task = tasks[index];
         const statusKey = task.status;
 
         if (!dataTask[statusKey]) {

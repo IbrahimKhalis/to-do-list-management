@@ -58,7 +58,7 @@ export function ModalForm() {
 
     async function handleSubmit() {
         try {
-            const result = await fetch('http://localhost:8080/tasks/create', {
+            const result = await fetch('http://localhost:8080/tasks', {
                 method: 'POST',
                 body: JSON.stringify(formData),
                 headers: { "Content-Type": "application/json" }
